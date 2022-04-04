@@ -5,7 +5,9 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
-/public/upload/
+/public/upload/*
+!/public/upload/images
+/public/upload/images/*
 !/public/upload/images/establishment.jpg
 /var/
 /vendor/
