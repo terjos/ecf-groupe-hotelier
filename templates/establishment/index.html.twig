@@ -1,0 +1,26 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Nos éstablishments
+{% endblock %}
+
+{% block body %}
+  <h1>
+    Nos éstablishments
+  </h1>
+
+  {% for establishment in establishments %}
+    <div>
+      <h2>
+        {{ establishment.name }}
+      </h2>
+      <img src="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}}" alt="{{ establishment.name }}">
+      <p>
+        {{ establishment.description }}
+      </p>
+      <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
+        voir +
+      </a>
+    </div>
+  {% endfor %}
+{% endblock %}

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  Establishment
+{% endblock %}
+
+{% block body %}
+  <div>
+    <h2>
+      {{ establishment.name }}
+    </h2>
+    <img src="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}}" alt="{{ establishment.name }}">
+    <p>
+      {{ establishment.description }}
+    </p>
+  </div>
+{% endblock %}

@@ -5,6 +5,8 @@
 /.env.*.local
 /config/secrets/prod/prod.decrypt.private.php
 /public/bundles/
+/public/upload/
+!/public/upload/images/establishment.jpg
 /var/
 /vendor/
 ###< symfony/framework-bundle ###
@@ -18,3 +20,7 @@
 /phpunit.xml
 .phpunit.result.cache
 ###< phpunit/phpunit ###
+
+###> liip/imagine-bundle ###
+/public/media/cache/
+###< liip/imagine-bundle ###
