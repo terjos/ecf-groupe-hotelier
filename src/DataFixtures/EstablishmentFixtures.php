@@ -14,8 +14,8 @@ class EstablishmentFixtures extends Fixture
         $faker = Faker\Factory::create('fr_FR');
 
         for ($i = 0; $i < 7; $i++) {
-            $Establishment = new Establishment();
-            $Establishment
+            $establishment = new Establishment();
+            $establishment
                 ->setName($faker->company)
                 ->setAdress($faker->streetAddress)
                 ->setCp($faker->postcode)
@@ -23,7 +23,9 @@ class EstablishmentFixtures extends Fixture
                 ->setDescription($faker->text)
                 ->setPictureName('establishment.jpg');
 
-            $manager->persist($Establishment);
+            $manager->persist($establishment);
+
+            $this->addReference('establishment' . $i, $establishment);
         }
         $manager->flush();
     }
