@@ -1,0 +1,1 @@
+ssh puqccmdc@node177-eu.n0c.com -p 5022 "cd ~/public_html && php bin/console cache:clear && php bin/console doctrine:migrations:migrate --no-interaction && php bin/console doctrine:fixtures:load --no-interaction --env=dev"
