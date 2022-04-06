@@ -63,6 +63,10 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('lastName', 'Nom');
         yield TextField::new('firstName', 'Prénom');
         yield EmailField::new('email', 'Email')->onlyOnForms();
+        yield TextField::new('password', 'Mot de passe')->onlyWhenCreating();
+        yield TextField::new('adress', 'Adresse');
+        yield TextField::new('cp', 'Code postal');
+        yield TextField::new('city', 'Ville');
         yield AssociationField::new('establishment', 'Établissement')
             ->onlyOnForms()
             ->setPermission('ROLE_ADMIN');
@@ -73,7 +77,6 @@ class UserCrudController extends AbstractCrudController
                     'Administrateur' => 'ROLE_ADMIN',
                     'Gérant' => 'ROLE_GERANT',
                     'Client' => 'ROLE_CLIENT',
-                    'Utilisateur' => 'ROLE_USER'
                 ]
             )
             ->allowMultipleChoices()

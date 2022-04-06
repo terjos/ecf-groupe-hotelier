@@ -4,10 +4,13 @@ namespace App\Entity;
 
 use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[UniqueEntity('email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
@@ -16,27 +19,42 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private $id;
 
     #[ORM\Column(type: 'string', length: 180, unique: true)]
+    #[Assert\Email]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 180)]
     private $email;
 
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
     #[ORM\Column(type: 'string')]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 6)]
     private $password;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 50)]
     private $firstName;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 5, max: 50)]
     private $lastName;
 
     #[ORM\Column(type: 'string', length: 100)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 100)]
     private $adress;
 
     #[ORM\Column(type: 'string', length: 30)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 30)]
     private $cp;
 
     #[ORM\Column(type: 'string', length: 50)]
+    #[Assert\NotBlank]
+    #[Assert\Length(min: 3, max: 50)]
     private $city;
 
     #[ORM\ManyToOne(targetEntity: Establishment::class, inversedBy: 'users')]

@@ -6,13 +6,19 @@ use App\Repository\RoomRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\HttpFoundation\File\File;
-use Vich\UploaderBundle\Mapping\Annotation as Vich;
 use Symfony\Component\Validator\Constraints as Assert;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
 #[ORM\Entity(repositoryClass: RoomRepository::class)]
 #[ORM\HasLifecycleCallbacks()]
 #[Vich\Uploadable]
+#[UniqueEntity(
+    fields: ['establishment', 'title'],
+    errorPath: 'title',
+    message: 'Cet établissement a déjà une suite avec ce nom',
+)]
 class Room
 {
     #[ORM\Id]
@@ -27,7 +33,7 @@ class Room
     #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'featuredImageName')]
     private ?File $featuredImageFile = null;
 
-    #[ORM\Column(type: 'string', length: 255)]
+    #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $featuredImageName;
 
     #[ORM\Column(type: 'decimal', precision: 10, scale: 2)]
@@ -35,6 +41,7 @@ class Room
     private $price;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Length(min: 5, max: 255)]
     #[Assert\NotBlank(message: "Veuillez renseigner le lien Booking")]
     private $bookingLink;
 
@@ -107,7 +114,7 @@ class Room
         return $this->featuredImageName;
     }
 
-    public function setFeaturedImageName(string $featuredImageName): self
+    public function setFeaturedImageName(?string $featuredImageName): self
     {
         $this->featuredImageName = $featuredImageName;
 

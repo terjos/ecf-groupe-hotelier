@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\PictureRepository;
+use App\Validator as AppAssert;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -11,6 +12,11 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
 #[ORM\Entity(repositoryClass: PictureRepository::class)]
 #[ORM\HasLifecycleCallbacks()]
 #[Vich\Uploadable]
+#[AppAssert\FileNotNull(
+    fieldFile: 'pictureFile',
+    fieldName: 'pictureName',
+    message: 'Veuillez sélectionner une image.'
+)]
 class Picture
 {
     #[ORM\Id]
@@ -24,7 +30,6 @@ class Picture
 
     #[Vich\UploadableField(mapping: 'picture', fileNameProperty: 'pictureName')]
     #[Assert\Image()]
-    #[Assert\NotBlank(message: "Veuillez sélectionner une image")]
     private ?File $pictureFile = null;
 
     #[ORM\Column(type: 'string', length: 255)]

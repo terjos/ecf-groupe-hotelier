@@ -13,7 +13,10 @@ class PictureType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('pictureFile', VichImageType::class, ['label' => 'Image'])
+            ->add('pictureFile', VichImageType::class, [
+                'allow_delete' => false,
+                'label' => 'Image',
+            ])
             ->add('label');
     }
 

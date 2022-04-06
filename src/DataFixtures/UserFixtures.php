@@ -4,6 +4,7 @@ namespace App\DataFixtures;
 
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
 class UserFixtures extends Fixture
@@ -31,7 +32,9 @@ class UserFixtures extends Fixture
             ->setRoles(['ROLE_GERANT'])
             ->setAdress('1 rue de la paix')
             ->setCp('75000')
-            ->setCity('Paris');
+            ->setCity('Paris')
+            ->setEstablishment($this->getReference('establishment1'));
+
         $manager->persist($gerant);
 
         $client = new User();
@@ -47,5 +50,12 @@ class UserFixtures extends Fixture
         $manager->persist($client);
 
         $manager->flush();
+    }
+
+    public function getDependencies()
+    {
+        return array(
+            EstablishmentFixtures::class,
+        );
     }
 }
