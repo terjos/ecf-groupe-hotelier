@@ -1,1 +1,2 @@
-rsync -av -e 'ssh -p 5022' ./ puqccmdc@node177-eu.n0c.com:~/public_html --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
+rsync -avr -e 'ssh -p 5022' ./ puqccmdc@node177-eu.n0c.com:~/public_html --include=/public/upload/ --include=/public/upload/images/ --include=/public/upload/images/fake*.jpg --include=public/.htaccess --exclude-from=.gitignore --exclude=".*"
+ssh puqccmdc@node177-eu.n0c.com -p 5022 "cd ~/public_html && php bin/console cache:clear"

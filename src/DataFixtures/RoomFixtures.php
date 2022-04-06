@@ -19,7 +19,7 @@ class RoomFixtures extends Fixture implements DependentFixtureInterface
                 $room = new Room();
                 $room
                     ->setTitle($faker->name)
-                    ->setFeaturedImageName('room.jpg')
+                    ->setFeaturedImageName('fake-room.jpg')
                     ->setPrice($faker->randomFloat(2, 90, 300))
                     ->setBookingLink('https://www.booking.com/')
                     ->setDescription($faker->Text)

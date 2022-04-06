@@ -8,7 +8,7 @@
 /public/upload/*
 !/public/upload/images
 /public/upload/images/*
-!/public/upload/images/establishment.jpg
+!/public/upload/images/fake-*.jpg
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

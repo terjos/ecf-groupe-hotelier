@@ -21,7 +21,7 @@ class EstablishmentFixtures extends Fixture
                 ->setCp($faker->postcode)
                 ->setCity($faker->city)
                 ->setDescription($faker->text)
-                ->setPictureName('establishment.jpg');
+                ->setPictureName('fake-establishment.jpg');
 
             $manager->persist($establishment);
 

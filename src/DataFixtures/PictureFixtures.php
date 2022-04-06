@@ -21,7 +21,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
                     $picture = new Picture();
                     $picture
                         ->setLabel($faker->name)
-                        ->setPictureName("room-$pictureNumber.jpg")
+                        ->setPictureName("fake-room-$pictureNumber.jpg")
                         ->setRoom($this->getReference('room' . $i . $j));
 
                     $manager->persist($picture);
