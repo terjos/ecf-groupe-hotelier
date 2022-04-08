@@ -1,0 +1,237 @@
+@import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Ovo&family=Proza+Libre:ital,wght@0,400;0,700;1,400&display=swap");
+@import url("./reset.css");
+@font-face {
+    font-family: "Tostada-Regular";
+    src: url("../fonts/Tostada-Regular.ttf.woff") format("woff"),
+        url("../fonts/Tostada-Regular.ttf.svg#Tostada-Regular") format("svg"), url("../fonts/Tostada-Regular.ttf.eot"),
+        url("../fonts/Tostada-Regular.ttf.eot?#iefix") format("embedded-opentype");
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* Base Styles
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+:root {
+    --color-primary: 65, 150, 159;
+    --color-secondary: 244, 234, 230;
+    --color-tertiary: 229, 128, 133;
+    --color-primary-dark: 46, 80, 96;
+    --color-dark: 33, 37, 41;
+    --color-light: 252, 252, 252;
+
+    --navbar-height: 64px;
+}
+
+html {
+    font-size: 14px;
+}
+
+body {
+    font-family: "Proza Libre", Helvetica, Arial, sans-serif;
+    font-weight: 500;
+    line-height: 1.6;
+    color: rgb(var(--color-dark));
+    background-color: rgb(var(--color-light));
+}
+
+/* Typography
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Ovo", Helvetica, Arial, sans-serif;
+    color: rgb(var(--color-primary-dark));
+    margin-bottom: 1.2rem;
+    font-weight: 700;
+}
+h1 {
+    font-family: "Bree Serif", Helvetica, Arial, sans-serif;
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3,
+h4,
+h5,
+h6 {
+    font-size: 1.8rem;
+}
+
+/* Links
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+a {
+    color: rgb(var(--color-primary));
+    text-decoration: none;
+    transition-duration: 0.2s;
+}
+a:hover {
+    color: rgb(var(--color-primary-dark));
+}
+
+/* Layout
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.container {
+    max-width: 1200px;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Navbar
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.navbar {
+    position: sticky;
+    top: 0;
+    height: var(--navbar-height);
+    background-color: rgb(var(--color-dark));
+    box-shadow: 0 2px 4px rgba(var(--color-dark), 0.15);
+}
+
+.navbar-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+    align-items: center;
+}
+
+.home-link,
+.navbar-link {
+    transition: color 0.3s ease-in-out;
+    text-decoration: none;
+    display: flex;
+    font-weight: 400;
+    align-items: center;
+    color: rgb(var(--color-light));
+    transition: background-color 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+.home-link {
+    font-family: "Tostada-Regular";
+    font-size: 1.4rem;
+}
+
+.home-link:focus,
+.home-link:hover {
+    color: rgb(var(--color-primary));
+}
+
+.navbar-link {
+    justify-content: center;
+    width: 100%;
+    padding: 0.4em 0.8em;
+    border-radius: 5px;
+}
+
+.is-active .navbar-link,
+.navbar-link:focus,
+.navbar-link:hover {
+    color: rgb(var(--color-primary));
+    background-color: rgba(var(--color-dark), 0.75);
+}
+
+.navbar-logo {
+    width: 32px;
+    height: 32px;
+    margin-right: 1em;
+}
+
+.navbar-toggle {
+    cursor: pointer;
+    border: none;
+    background-color: transparent;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.icon-bar {
+    display: block;
+    width: 25px;
+    height: 4px;
+    margin: 2px;
+    transition: background-color 0.3s ease-in-out, transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    background-color: rgb(var(--color-light));
+}
+
+.navbar.opened .navbar-toggle .icon-bar:first-child,
+.navbar.opened .navbar-toggle .icon-bar:last-child {
+    position: absolute;
+    margin: 0;
+    width: 30px;
+}
+
+.navbar.opened .navbar-toggle .icon-bar:first-child {
+    transform: rotate(45deg);
+}
+
+.navbar.opened .navbar-toggle .icon-bar:nth-child(2) {
+    opacity: 0;
+}
+
+.navbar.opened .navbar-toggle .icon-bar:last-child {
+    transform: rotate(-45deg);
+}
+
+.navbar-links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: absolute;
+    top: var(--navbar-height);
+    right: 0;
+    left: 0;
+    max-height: 0;
+    margin: 1rem;
+    overflow: hidden;
+    list-style-type: none;
+    white-space: nowrap;
+    border-radius: 5px;
+    background-color: rgb(var(--color-dark));
+    box-shadow: 0 0 20px rgba(var(--color-dark), 0.3);
+    transition: 0.2s ease-out;
+}
+
+.navbar.opened .navbar-links {
+    max-height: none;
+    padding: 1em;
+}
+
+.navbar-item {
+    width: 100%;
+    margin: 0.4em;
+}
+
+/* Media Queries
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media (min-width: 576px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+@media screen and (min-width: 768px) {
+    .navbar-toggle {
+        display: none;
+    }
+
+    .navbar-links,
+    .navbar.opened .navbar-links {
+        flex-direction: row;
+        max-height: max-content;
+        position: static;
+        margin: 0;
+        padding: 0;
+        box-shadow: none;
+        width: auto;
+    }
+}
