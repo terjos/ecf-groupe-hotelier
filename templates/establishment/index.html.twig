@@ -10,17 +10,35 @@
   </h1>
 
   {% for establishment in establishments %}
-    <div>
-      <h2>
-        {{ establishment.name }}
-      </h2>
-      <img src="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}}" alt="{{ establishment.name }}">
-      <p>
-        {{ establishment.description }}
-      </p>
-      <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
-        voir +
-      </a>
+    <div class="establishment">
+
+      <div class="establishment-title">
+        <h2>
+          <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
+            {{ establishment.name }}
+            <span>
+              (
+              {{ establishment.city }}
+              )
+            </span>
+          </a>
+        </h2>
+      </div>
+      <div class="establishment-content">
+        <div class="establishment-img">
+          <img src="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}}" alt="{{ establishment.name }}">
+        </div>
+        <div class="establishment-description">
+          <p>
+            {{ establishment.description | length > 400 ? establishment.description | slice(0, 400) ~ '...' : establishment.description }}
+          </p>
+          <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
+            <button>
+              Voir l'établissement et ses suites
+            </button>
+          </a>
+        </div>
+      </div>
     </div>
   {% endfor %}
 {% endblock %}

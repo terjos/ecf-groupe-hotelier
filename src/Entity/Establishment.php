@@ -60,6 +60,7 @@ class Establishment
     private $users;
 
     #[ORM\OneToMany(mappedBy: 'establishment', targetEntity: Room::class, orphanRemoval: true)]
+    #[ORM\OrderBy(["price" => "ASC"])]
     private $rooms;
 
     public function __construct()

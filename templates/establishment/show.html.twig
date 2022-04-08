@@ -1,17 +1,74 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Establishment
+  {{ establishment.name }}
 {% endblock %}
 
 {% block body %}
-  <div>
-    <h2>
-      {{ establishment.name }}
-    </h2>
-    <img src="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}}" alt="{{ establishment.name }}">
+  <h1>
+    {{ establishment.name }}
+  </h1>
+  <div class="establishment">
+    <div class="establishment-info">
+      <img 
+        srcset="{{ vich_uploader_asset(establishment) | imagine_filter('thumb')}} 250w,
+                {{ vich_uploader_asset(establishment) | imagine_filter('medium')}} 600w,
+                {{ vich_uploader_asset(establishment) | imagine_filter('large')}} 1024w"
+        sizes="(min-width: 576px) 300px, 90vw"
+        src="{{ vich_uploader_asset(establishment) | imagine_filter('medium')}}"
+        alt="{{ establishment.name }}"
+      />
+      <div class="establishment-adress">
+        <div>
+          Adresse:
+        </div>
+        <div>
+          {{ establishment.adress }}
+        </div>
+        <div>
+          {{ establishment.cp }}
+          {{ establishment.city }}
+        </div>
+      </div>
+    </div>
     <p>
       {{ establishment.description }}
     </p>
+  </div>
+  <h2>
+    Les Suites:
+  </h2>
+  <div class="rooms">
+    {% for room in establishment.rooms %}
+      <h3>
+        {{ room.title }}
+      </h3>
+      <div class="room">
+        <div class="room-img">
+          <img 
+            srcset="{{ vich_uploader_asset(room) | imagine_filter('thumb')}} 250w,
+                    {{ vich_uploader_asset(room) | imagine_filter('medium')}} 600w,
+                    {{ vich_uploader_asset(room) | imagine_filter('large')}} 1024w"
+            sizes="(min-width: 576px) 300px, 90vw"
+            src="{{ vich_uploader_asset(room) | imagine_filter('medium')}}"
+            alt="{{ room.title }}"
+          />
+        </div>
+        <div class="room-info">
+          <div class="room-price">
+            {{ room.price | number_format(2, ',', ' ') }}
+            € / la nuit
+          </div>
+          <div class="room-description">
+            {{ room.description | length > 200 ? room.description | slice(0, 200) ~ '...' : room.description }}
+          </div>
+          <div class="room-link">
+            <a href="{{ path('app_room_show', { 'id': room.id}) }}">
+              voir la suite
+            </a>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
   </div>
 {% endblock %}

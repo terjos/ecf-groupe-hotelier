@@ -1,0 +1,63 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+  {{ room.establishment.name}}
+  |
+  {{ room.title }}
+
+{% endblock %}
+
+{% block body %}
+  <h1>
+    {{ room.title }}
+  </h1>
+
+  <div class="room">
+    <div class="room-img">
+      <img 
+        srcset="{{ vich_uploader_asset(room) | imagine_filter('thumb')}} 250w,
+                {{ vich_uploader_asset(room) | imagine_filter('medium')}} 600w,
+                {{ vich_uploader_asset(room) | imagine_filter('large')}} 1024w"
+        sizes="(min-width: 576px) 300px, 90vw"
+        src="{{ vich_uploader_asset(room) | imagine_filter('medium')}}"
+        alt="{{ room.title }}"
+      />
+    </div>
+    <div class="room-info">
+      <div class="room-price">
+        {{ room.price | number_format(2, ',', ' ') }}
+        € / la nuit
+      </div>
+      <div class="room-description">
+        {{ room.description  }}
+      </div>
+      <div class="room-resa">
+        <a href="{{ room.bookingLink }}" target="_blank">
+          <button>
+            Réserver sur booking.com
+          </button>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="room-galerie">
+    <h2>
+      Galerie
+    </h2>
+    <div class="room-galerie-imgs">
+      {% for picture in room.pictures %}
+        <div class="room-img">
+          <img
+            srcset="{{ vich_uploader_asset(picture) | imagine_filter('thumb')}} 250w,
+                    {{ vich_uploader_asset(picture) | imagine_filter('medium')}} 500w,
+                    {{ vich_uploader_asset(room) | imagine_filter('large')}} 1024w"
+            sizes="(min-width: 576px) 400px, 90vw"
+            src="{{ vich_uploader_asset(picture) | imagine_filter('medium')}}"
+            alt="{{ picture.label }}"/>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}
