@@ -32,12 +32,12 @@
         {{ room.description  }}
       </div>
       <div class="room-resa">
-        <a href="{{ room.bookingLink }}" target="_blank">
-          <button>
-            Réserver sur booking.com
-          </button>
+        <a href="{{ path('app_reservation_new', { 'suite': room.id}) }}">
+          <button>Réserver la suite</button>
         </a>
-
+        <a href="{{ room.bookingLink }}" target="_blank">
+          <button>Réserver sur booking.com</button>
+        </a>
       </div>
     </div>
   </div>

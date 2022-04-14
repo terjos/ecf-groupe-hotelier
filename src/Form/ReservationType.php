@@ -69,6 +69,25 @@ class ReservationType extends AbstractType
             ]);
         };
 
+        $builder->addEventListener(
+            FormEvents::PRE_SET_DATA,
+            function (FormEvent $event) use ($formModifier) {
+                $data = $event->getData();
+                $establishment = null === $data->getRoom() ? null : $data->getRoom()->getEstablishment();
+                if ($establishment !== null) {
+                    $event->getForm()->add('establishment', EntityType::class, [
+                        'class' => 'App\Entity\Establishment',
+                        'choice_label' => 'name',
+                        'label' => 'Choisissez un établissement',
+                        'placeholder' => 'Choisissez un établissement',
+                        'mapped' => false,
+                        'data' => $establishment,
+                    ]);
+                    $formModifier($event->getForm(), $establishment);
+                }
+            }
+        );
+
         $builder->get('establishment')->addEventListener(
             FormEvents::POST_SUBMIT,
             function (FormEvent $event) use ($formModifier) {

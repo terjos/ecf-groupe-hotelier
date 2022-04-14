@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Reservation;
 use App\Form\ReservationType;
 use App\Repository\ReservationRepository;
+use App\Repository\RoomRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -17,10 +18,13 @@ class ReservationController extends AbstractController
 {
     #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_CLIENT')]
-    public function new(Request $request, ReservationRepository $reservationRepository): Response
+    public function new(Request $request, ReservationRepository $reservationRepository, RoomRepository $roomRepository): Response
     {
         $reservation = new Reservation();
         $reservation->setUser($this->getUser());
+        if ($request->get('suite')) {
+            $reservation->setRoom($roomRepository->find($request->get('suite')));
+        }
         $form = $this->createForm(ReservationType::class, $reservation);
         $form->handleRequest($request);
 
