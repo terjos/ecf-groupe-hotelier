@@ -7,7 +7,7 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
-class UserFixtures extends Fixture
+class UserFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -17,10 +17,7 @@ class UserFixtures extends Fixture
             ->setFirstName('admin')
             ->setEmail('admin@example.com')
             ->setPassword('$2y$13$WLID6vr6RPX3IJuL29UCaOFNCQPMEnQ6MwyRCilyU435EYjwoZ0yq')
-            ->setRoles(['ROLE_ADMIN'])
-            ->setAdress('1 rue de la paix')
-            ->setCp('75000')
-            ->setCity('Paris');
+            ->setRoles(['ROLE_ADMIN']);
         $manager->persist($admin);
 
         $gerant = new User();
@@ -30,9 +27,6 @@ class UserFixtures extends Fixture
             ->setEmail('gerant@example.com')
             ->setPassword('$2y$13$WLID6vr6RPX3IJuL29UCaOFNCQPMEnQ6MwyRCilyU435EYjwoZ0yq')
             ->setRoles(['ROLE_GERANT'])
-            ->setAdress('1 rue de la paix')
-            ->setCp('75000')
-            ->setCity('Paris')
             ->setEstablishment($this->getReference('establishment1'));
 
         $manager->persist($gerant);
@@ -42,12 +36,11 @@ class UserFixtures extends Fixture
             ->setLastName('client')
             ->setFirstName('client')
             ->setEmail('client@example.com')
-            ->setPassword('$2y$13$VOabkPyp0SHe/MnCxG1wFu7n8lRBwSb4uIfXP.NrJbvZqSHjMBJfe')
-            ->setRoles(['ROLE_CLIENT'])
-            ->setAdress('1 rue de la paix')
-            ->setCp('75000')
-            ->setCity('Paris');
+            ->setPassword('$2y$13$paC/lq0zl14VDO03JfIdCewljUmRBK4p4r6QpNF2jWzpD7AXHF4Xy')
+            ->setRoles(['ROLE_CLIENT']);
         $manager->persist($client);
+
+        $this->addReference('client', $client);
 
         $manager->flush();
     }

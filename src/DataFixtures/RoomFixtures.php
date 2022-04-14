@@ -18,11 +18,11 @@ class RoomFixtures extends Fixture implements DependentFixtureInterface
             for ($j = 0; $j < 10; $j++) {
                 $room = new Room();
                 $room
-                    ->setTitle($faker->name)
+                    ->setTitle($faker->name())
                     ->setFeaturedImageName('fake-room.jpg')
                     ->setPrice($faker->randomFloat(2, 90, 300))
                     ->setBookingLink('https://www.booking.com/')
-                    ->setDescription($faker->Text)
+                    ->setDescription($faker->text())
                     ->setEstablishment($this->getReference('establishment' . $i));
 
                 $manager->persist($room);

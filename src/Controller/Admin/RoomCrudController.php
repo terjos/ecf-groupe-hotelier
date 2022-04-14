@@ -4,9 +4,12 @@ namespace App\Controller\Admin;
 
 use App\Entity\Room;
 use App\Form\PictureType;
+use App\Form\ReservationType;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto;
@@ -72,11 +75,17 @@ class RoomCrudController extends AbstractCrudController
         yield TextField::new('featuredImageFile', 'Image')->setFormType(VichImageType::class)->onlyOnForms();
         yield ImageField::new('featuredImageName', 'Image')
             ->setBasePath($this->uploadImages)
-            ->onlyOnIndex();
+            ->hideOnForm();
         yield CollectionField::new('Pictures', 'Galerie')
             ->setEntryType(PictureType::class)
             ->setCustomOption('renderExpanded', true)
             ->onlyOnForms();
+        yield CollectionField::new('reservations', 'Réservation')
+            ->setEntryType(ReservationType::class)
+            ->setTemplatePath('admin/reservation_collection.html.twig')
+            ->renderExpanded(true)
+            ->setEntryIsComplex(true)
+            ->onlyOnDetail();
     }
 
     public function createEntity(string $entityFqcn)
@@ -85,5 +94,11 @@ class RoomCrudController extends AbstractCrudController
         $room->setEstablishment($this->getUser()->getEstablishment());
 
         return $room;
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->add(Crud::PAGE_INDEX, Action::DETAIL);
     }
 }

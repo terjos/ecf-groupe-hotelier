@@ -20,7 +20,7 @@ class PictureFixtures extends Fixture implements DependentFixtureInterface
                     $pictureNumber = $faker->numberBetween(1, 18);
                     $picture = new Picture();
                     $picture
-                        ->setLabel($faker->name)
+                        ->setLabel($faker->name())
                         ->setPictureName("fake-room-$pictureNumber.jpg")
                         ->setRoom($this->getReference('room' . $i . $j));
 

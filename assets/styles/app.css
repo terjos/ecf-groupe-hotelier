@@ -53,6 +53,83 @@ button:hover {
     background-color: rgb(var(--color-primary-dark));
 }
 
+button:disabled,
+button[disabled],
+button:disabled:hover,
+button[disabled]:hover {
+    cursor: not-allowed;
+    background-color: rgba(var(--color-primary-dark), 0.7);
+}
+
+/* Forms
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+input[type="email"],
+input[type="date"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea,
+select {
+    height: 38px;
+    padding: 6px 10px; /* The 6px vertically centers text on FF, ignored by Webkit */
+    background-color: rgb(var(--color-light));
+    border: 1px solid rgb(var(--color-primary-dark));
+    border-radius: 4px;
+    box-shadow: none;
+    box-sizing: border-box;
+}
+/* Removes awkward default styles on some inputs for iOS */
+input[type="email"],
+input[type="date"],
+input[type="search"],
+input[type="text"],
+input[type="tel"],
+input[type="url"],
+input[type="password"],
+textarea {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+textarea {
+    min-height: 65px;
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+input[type="email"]:focus,
+input[type="date"]:focus,
+input[type="search"]:focus,
+input[type="text"]:focus,
+input[type="tel"]:focus,
+input[type="url"]:focus,
+input[type="password"]:focus,
+textarea:focus,
+select:focus {
+    border: 1px solid rgb(var(--color-primary));
+    outline: 2px solid rgba(var(--color-primary), 0.7);
+}
+label,
+legend {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+fieldset {
+    padding: 0;
+    border-width: 0;
+}
+input[type="checkbox"],
+input[type="radio"] {
+    display: inline;
+}
+label > .label-body {
+    display: inline-block;
+    margin-left: 0.5rem;
+    font-weight: normal;
+}
+
 /* Typography
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 h1,
@@ -69,6 +146,8 @@ h6 {
 h1 {
     font-family: "Bree Serif", Helvetica, Arial, sans-serif;
     font-size: 2.5rem;
+    word-spacing: 0.5rem;
+    letter-spacing: 0.2rem;
 }
 
 h2 {
@@ -93,8 +172,47 @@ a:hover {
     color: rgb(var(--color-primary-dark));
 }
 
+/* flash
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+.flash {
+    position: relative;
+    z-index: 0;
+    padding: 1rem 1rem;
+    margin-bottom: 1rem;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    animation-name: animate-flash;
+    animation-duration: 0.5s;
+    animation-delay: 1s;
+}
+
+.flash-success {
+    border-color: rgb(var(--color-primary));
+    background-color: rgba(var(--color-primary), 0.7);
+}
+
+.flash-success {
+    border-color: rgb(var(--color-primary));
+    background-color: rgba(var(--color-primary), 0.7);
+}
+
+.flash .closebtn {
+    cursor: pointer;
+    margin-left: 15px;
+    float: right;
+    font-size: 22px;
+    font-weight: bold;
+    line-height: 20px;
+    color: rgb(var(--color-light));
+    transition: 0.3s;
+}
+
+.flash .closebtn:hover {
+    color: rgb(var(--color-dark));
+}
+
 /* Layout
-  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
 .container {
     max-width: 1200px;
     padding-left: 1.4rem;
@@ -107,6 +225,7 @@ a:hover {
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .navbar {
     position: sticky;
+    z-index: 10;
     top: 0;
     height: var(--navbar-height);
     background-color: rgb(var(--color-dark));
@@ -326,6 +445,53 @@ a:hover {
     flex-direction: column;
     align-items: center;
     margin-top: 20px;
+}
+
+/* reservation and login
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+
+.h1-small {
+    font-size: 1.5rem;
+    text-align: center;
+    width: 100%;
+}
+
+.form,
+.form-group {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+}
+
+.form {
+    gap: 30px;
+}
+
+.form-group label em {
+    font-size: 0.7rem;
+    margin-left: 0.5rem;
+}
+
+.form-group input,
+.form-group select {
+    width: 300px;
+    max-width: 100%;
+}
+
+.form-group li,
+.form-error {
+    color: rgb(var(--color-tertiary));
+}
+
+.form-error {
+    min-height: 25px;
+}
+
+.link-register {
+    text-align: center;
+    width: 100%;
 }
 
 /* Media Queries

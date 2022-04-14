@@ -63,9 +63,14 @@ class Room
     #[Assert\Valid()]
     private $pictures;
 
+    #[ORM\OneToMany(mappedBy: 'room', targetEntity: Reservation::class, orphanRemoval: true)]
+    #[ORM\OrderBy(["startAt" => "DESC"])]
+    private $reservations;
+
     public function __construct()
     {
         $this->pictures = new ArrayCollection();
+        $this->reservations = new ArrayCollection();
     }
 
     #[ORM\PreUpdate]
@@ -221,5 +226,40 @@ class Room
         }
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Reservation>
+     */
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
+    }
+
+    public function addReservation(Reservation $reservation): self
+    {
+        if (!$this->reservations->contains($reservation)) {
+            $this->reservations[] = $reservation;
+            $reservation->setRoom($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReservation(Reservation $reservation): self
+    {
+        if ($this->reservations->removeElement($reservation)) {
+            // set the owning side to null (unless already changed)
+            if ($reservation->getRoom() === $this) {
+                $reservation->setRoom(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function __toString(): string
+    {
+        return $this->getTitle();
     }
 }

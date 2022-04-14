@@ -5,17 +5,13 @@ namespace App\Validator;
 use Symfony\Component\Validator\Constraint;
 
 #[\Attribute(\Attribute::TARGET_CLASS)]
-class FileNotNull extends Constraint
+class UniqueReservation extends Constraint
 {
-    public $fieldName;
-    public $fieldFile;
-    public $message = 'Veuillez sélectionner un fichier.';
+    public $message = 'Cette suite est déjà réserver du {{ valueStart }} au {{ valueEnd }}.';
 
-    public function __construct($fieldName, $fieldFile, $message)
+    public function __construct($message = null)
     {
         parent::__construct();
-        $this->fieldName = $fieldName;
-        $this->fieldFile = $fieldFile;
         $this->message = $message ?? $this->message;
     }
 

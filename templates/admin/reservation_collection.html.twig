@@ -1,0 +1,19 @@
+{# @var ea \EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext #}
+{# @var field \EasyCorp\Bundle\EasyAdminBundle\Dto\FieldDto #}
+{# @var entity \EasyCorp\Bundle\EasyAdminBundle\Dto\EntityDto #}
+
+<table class="table datagrid {{ field.value is empty ? 'datagrid-empty' }}">
+  <tr>
+      <th>Client</th>
+      <th>Date de début</th>
+      <th>Date de fin</th>
+  </tr>
+  {% for value in field.value %}
+    <tr>
+        <td>{{ value.user.email }}</td>
+        <td>{{ value.startAt | date('d/m/Y') }}</td>
+        <td>{{ value.endAt | date('d/m/Y') }}</td>
+    </tr>
+  {% endfor %}
+</table>
+

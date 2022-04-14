@@ -16,11 +16,11 @@ class EstablishmentFixtures extends Fixture
         for ($i = 0; $i < 7; $i++) {
             $establishment = new Establishment();
             $establishment
-                ->setName($faker->company)
-                ->setAdress($faker->streetAddress)
-                ->setCp($faker->postcode)
-                ->setCity($faker->city)
-                ->setDescription($faker->text)
+                ->setName($faker->company())
+                ->setAdress($faker->streetAddress())
+                ->setCp($faker->postcode())
+                ->setCity($faker->city())
+                ->setDescription($faker->text())
                 ->setPictureName('fake-establishment.jpg');
 
             $manager->persist($establishment);
