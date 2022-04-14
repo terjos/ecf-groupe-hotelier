@@ -10,7 +10,7 @@ const submit = document.getElementById("reservation_submit");
 establishment?.addEventListener("change", function (e) {
     let data = new FormData(form);
 
-    fetch(form.action, {
+    fetch("/reservation/new", {
         method: "POST",
         body: data,
     })
@@ -33,7 +33,7 @@ endAt?.addEventListener("change", validatorDate);
 function validatorDate() {
     if (form.checkValidity()) {
         let data = new FormData(form);
-        fetch(`${form.action}/validate`, {
+        fetch("/reservation/new/validate", {
             method: "POST",
             body: data,
         })
