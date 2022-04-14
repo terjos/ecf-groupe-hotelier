@@ -501,6 +501,14 @@ a:hover {
     width: 100%;
 }
 
+/* Contact
+  –––––––––––––––––––––––––––––––––––––––––––––––––– */
+.form-group textarea {
+    width: 300px;
+    height: 200px;
+    max-width: 100%;
+}
+
 /* Media Queries
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
 @media (min-width: 576px) {
