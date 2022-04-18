@@ -1,0 +1,50 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte{% endblock %}
+
+{% block body %}
+    <h1>Mon compte</h1>
+
+    <h2>Mes réservations:</h2>
+
+    <table class="reservation-table">
+        <thead>
+            <tr>
+                <th>Establissement</th>
+                <th>Suite</th>
+                <th>Date de début</th>
+                <th>Date de fin</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for reservation in reservations %}
+            <tr>
+                <td data-label="établissement">{{ reservation.room.establishment }}</td>
+                <td data-label="suite">{{ reservation.room }}</td>
+                <td data-label="du">{{ reservation.startAt ? reservation.startAt|date('d/m/Y') : '' }}</td>
+                <td data-label="au">{{ reservation.endAt ? reservation.endAt|date('d/m/Y') : '' }}</td>
+                <td>
+                    <form 
+                        method="post" 
+                        action="{{ path('app_reservation_delete', {'id': reservation.id}) }}" 
+                        onsubmit="return confirm('Êtes-vous sûr de bien vouloir annuler cette réservation?');">
+
+                        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ reservation.id) }}">
+                        {% if reservation.canDelete %}
+                            <button class="btn-danger">Annuler</button>
+                        {% else %}
+                            <button disabled>Annuler</button>
+                        {% endif %}
+                    </form>
+                </td>
+            </tr>
+        {% else %}
+            <tr class="reservation-table-empty">
+                <td colspan="5">Vous n'avez pas de réservation</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}

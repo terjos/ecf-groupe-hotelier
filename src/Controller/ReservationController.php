@@ -63,13 +63,17 @@ class ReservationController extends AbstractController
         return new JsonResponse(['status' => 'OK'], 200);
     }
 
-    // #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
-    // public function delete(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
-    // {
-    //     if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
-    //         $reservationRepository->remove($reservation);
-    //     }
+    #[Route('/{id}', name: 'app_reservation_delete', methods: ['POST'])]
+    #[IsGranted('ROLE_CLIENT')]
+    public function delete(Request $request, Reservation $reservation, ReservationRepository $reservationRepository): Response
+    {
+        if (!$reservation->getCanDelete()) {
+            $this->addFlash('error', "Vous pouvez annuler une réservation qu'au moins 3 jours avant la date d'arrivée.");
+        } else if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
+            $reservationRepository->remove($reservation);
+            $this->addFlash('success', 'Votre réservation a bien été supprimée.');
+        }
 
-    //     return $this->redirectToRoute('app_reservation_index', [], Response::HTTP_SEE_OTHER);
-    // }
+        return $this->redirectToRoute('app_account', [], Response::HTTP_SEE_OTHER);
+    }
 }

@@ -100,6 +100,12 @@ class Reservation
         return $this;
     }
 
+    public function getCanDelete(): Bool
+    {
+        $startAtNowDiff = $this->getStartAt()->diff(new \DateTime());
+        return ($startAtNowDiff->invert > 0 && $startAtNowDiff->days > 2) ? true : false;
+    }
+
     public function __toString(): string
     {
         return 'Réservation' . $this->id;

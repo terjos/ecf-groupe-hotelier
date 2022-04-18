@@ -60,4 +60,20 @@ class ReservationRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
     }
+
+    /**
+     * @return Reservation[] Returns an array of Reservation objects
+     */
+    public function findByUser($user)
+    {
+        return $this->createQueryBuilder('resa')
+            ->select('resa', 'room', 'estab')
+            ->join('resa.room', 'room')
+            ->join('room.establishment', 'estab')
+            ->andWhere('resa.user = :user')
+            ->orderBy('resa.startAt', 'DESC')
+            ->setParameter('user', $user)
+            ->getQuery()
+            ->getResult();
+    }
 }

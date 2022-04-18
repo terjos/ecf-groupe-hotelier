@@ -61,6 +61,10 @@ button[disabled]:hover {
     background-color: rgba(var(--color-primary-dark), 0.7);
 }
 
+button[class="btn-danger"] {
+    background-color: rgb(var(--color-tertiary));
+}
+
 /* Forms
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 input[type="email"],
@@ -172,6 +176,20 @@ a:hover {
     color: rgb(var(--color-primary-dark));
 }
 
+/* Tables
+–––––––––––––––––––––––––––––––––––––––––––––––––– */
+table {
+    width: 100%;
+    margin: 2rem auto;
+    border-collapse: collapse;
+}
+th,
+td {
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 1px solid rgba(var(--color-primary-dark), 0.6);
+}
+
 /* flash
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .flash {
@@ -191,9 +209,9 @@ a:hover {
     background-color: rgba(var(--color-primary), 0.7);
 }
 
-.flash-success {
-    border-color: rgb(var(--color-primary));
-    background-color: rgba(var(--color-primary), 0.7);
+.flash-error {
+    border-color: rgb(var(--color-tertiary));
+    background-color: rgba(var(--color-tertiary), 0.7);
 }
 
 .flash .closebtn {
@@ -501,6 +519,10 @@ a:hover {
     width: 100%;
 }
 
+.reservation-table-empty td {
+    text-align: center;
+}
+
 /* Contact
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
 .form-group textarea {
@@ -511,6 +533,36 @@ a:hover {
 
 /* Media Queries
   –––––––––––––––––––––––––––––––––––––––––––––––––– */
+@media (max-width: 650px) {
+    .reservation-table thead {
+        display: none;
+    }
+
+    .reservation-table tr {
+        display: block;
+        margin-bottom: 40px;
+    }
+
+    .reservation-table td {
+        display: block;
+        text-align: right;
+    }
+
+    .reservation-table td:last-child {
+        border: none;
+    }
+
+    .reservation-table td:before {
+        content: attr(data-label);
+        float: left;
+        font-weight: bold;
+    }
+
+    .reservation-table-empty td {
+        text-align: center;
+    }
+}
+
 @media (min-width: 576px) {
     html {
         font-size: 16px;
