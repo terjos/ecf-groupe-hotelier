@@ -7,7 +7,6 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class FileNotNullValidator extends ConstraintValidator
 {
-
     public function validate($picture, Constraint $constraint)
     {
         $getFieldName = 'get' . ucfirst($constraint->fieldName);

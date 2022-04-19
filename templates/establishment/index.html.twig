@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Nos éstablishments
+  Nos éstablishments  | {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -16,11 +16,7 @@
         <h2>
           <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
             {{ establishment.name }}
-            <span>
-              (
-              {{ establishment.city }}
-              )
-            </span>
+            <span>({{ establishment.city }})</span>
           </a>
         </h2>
       </div>
@@ -32,10 +28,8 @@
           <p>
             {{ establishment.description | length > 400 ? establishment.description | slice(0, 400) ~ '...' : establishment.description }}
           </p>
-          <a href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
-            <button>
+          <a class="btn" href="{{ path('app_establishment_show', {'id': establishment.id}) }}">
               Voir l'établissement et ses suites
-            </button>
           </a>
         </div>
       </div>

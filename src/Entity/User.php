@@ -32,6 +32,8 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string')]
     private $password;
 
+    private string $plainPassword;
+
     #[ORM\Column(type: 'string', length: 50)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 5, max: 50)]
@@ -119,6 +121,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         $this->password = $password;
 
+        return $this;
+    }
+
+    public function getPlainPassword(): ?string
+    {
+        return $this->plainPassword;
+    }
+
+    public function setPlainPassword(string $plainPassword): User
+    {
+        $this->plainPassword = $plainPassword;
         return $this;
     }
 
@@ -211,5 +224,27 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString(): string
     {
         return $this->firstName . ' ' . $this->lastName;
+    }
+
+    public function __serialize(): array
+    {
+        return [
+            $this->id,
+            $this->lastName,
+            $this->firstName,
+            $this->email,
+            $this->password,
+            $this->roles,
+        ];
+    }
+
+    public function __unserialize(array $data): void
+    {
+        $this->id = $data[0];
+        $this->lastName = $data[1];
+        $this->firstName = $data[2];
+        $this->email = $data[3];
+        $this->password = $data[4];
+        $this->roles = $data[5];
     }
 }

@@ -16,7 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/reservation')]
 class ReservationController extends AbstractController
 {
-    #[Route('/new', name: 'app_reservation_new', methods: ['GET', 'POST'])]
+    #[Route('/creer', name: 'app_reservation_new', methods: ['GET', 'POST'])]
     #[IsGranted('ROLE_CLIENT')]
     public function new(Request $request, ReservationRepository $reservationRepository, RoomRepository $roomRepository): Response
     {
@@ -69,7 +69,7 @@ class ReservationController extends AbstractController
     {
         if (!$reservation->getCanDelete()) {
             $this->addFlash('error', "Vous pouvez annuler une réservation qu'au moins 3 jours avant la date d'arrivée.");
-        } else if ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
+        } elseif ($this->isCsrfTokenValid('delete' . $reservation->getId(), $request->request->get('_token'))) {
             $reservationRepository->remove($reservation);
             $this->addFlash('success', 'Votre réservation a bien été supprimée.');
         }

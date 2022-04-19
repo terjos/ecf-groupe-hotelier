@@ -12,7 +12,6 @@ use Symfony\Component\DomCrawler\Crawler;
 
 class ReservationControllerTest extends WebTestCase
 {
-
     protected AbstractDatabaseTool $databaseTool;
     protected KernelBrowser $client;
     protected ReferenceRepository $fixtures;
@@ -34,7 +33,7 @@ class ReservationControllerTest extends WebTestCase
     public function testRedirectToLogin(): void
     {
         $client = $this->client;
-        $client->request('GET', '/reservation/new');
+        $client->request('GET', '/reservation/creer');
 
         $this->assertResponseRedirects('/login');
     }
@@ -172,7 +171,7 @@ class ReservationControllerTest extends WebTestCase
         $client->submit($form);
 
 
-        $crawler = $client->request('GET', '/reservation/new');
+        $crawler = $client->request('GET', '/reservation/creer');
         $form = $crawler->selectButton('Enregistrer')->form([
             'reservation[establishment]' => $this->establishmentId,
         ]);

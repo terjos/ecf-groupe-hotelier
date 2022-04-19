@@ -17,6 +17,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ChoiceField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\EmailField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 #[IsGranted('ROLE_GERANT')]
 class UserCrudController extends AbstractCrudController
@@ -63,10 +64,9 @@ class UserCrudController extends AbstractCrudController
         yield TextField::new('lastName', 'Nom');
         yield TextField::new('firstName', 'Prénom');
         yield EmailField::new('email', 'Email')->onlyOnForms();
-        yield TextField::new('password', 'Mot de passe')->onlyWhenCreating();
-        yield TextField::new('adress', 'Adresse');
-        yield TextField::new('cp', 'Code postal');
-        yield TextField::new('city', 'Ville');
+        yield TextField::new('plainPassword', 'Mot de passe')
+            ->setFormType(PasswordType::class)
+            ->onlyWhenCreating();
         yield AssociationField::new('establishment', 'Établissement')
             ->onlyOnForms()
             ->setPermission('ROLE_ADMIN');

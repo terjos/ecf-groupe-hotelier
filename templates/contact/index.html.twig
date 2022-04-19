@@ -1,37 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  Contact
+  Contact | {{ parent() }}
 {% endblock %}
 
 {% block body %}
-    <h1 class="h1-small">Contact</h1>
+  <h1 class="h1-small">Contact</h1>
 
-    {{ form_start(mail_form,{'attr': {'id': 'form_contact', 'class': 'form'}}) }}
-        <div class="form-group">
-            <label for="contact_lastName">Votre nom <em>(5 caratères minimun)</em></label>
-            {{ form_errors(mail_form.lastName) }}
-            {{ form_widget(mail_form.lastName) }}
-        </div>
-        <div class="form-group">
-            <label for="contact_firstName">Votre prénom <em>(5 caratères minimun)</em></label>
-            {{ form_errors(mail_form.firstName) }}
-            {{ form_widget(mail_form.firstName) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(mail_form.email) }}
-            {{ form_errors(mail_form.email) }}
-            {{ form_widget(mail_form.email) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(mail_form.subject) }}
-            {{ form_errors(mail_form.subject) }}
-            {{ form_widget(mail_form.subject) }}
-        </div>
-        <div class="form-group">
-            {{ form_label(mail_form.message) }}
-            {{ form_errors(mail_form.message) }}
-            {{ form_widget(mail_form.message) }}
-        </div>
-    {{ form_end(mail_form) }}
+  {{ form_start(mail_form,{'attr': {'id': 'form_contact', 'class': 'form'}}) }}
+    <div class="form-group">
+      <label for="contact_lastName">Votre nom <em>(5 caratères minimun)</em></label>
+      {{ form_errors(mail_form.lastName) }}
+      {{ form_widget(mail_form.lastName) }}
+    </div>
+    <div class="form-group">
+      <label for="contact_firstName">Votre prénom <em>(5 caratères minimun)</em></label>
+      {{ form_errors(mail_form.firstName) }}
+      {{ form_widget(mail_form.firstName) }}
+    </div>
+    <div class="form-group">
+      {{ form_label(mail_form.email) }}
+      {{ form_errors(mail_form.email) }}
+      {{ form_widget(mail_form.email) }}
+    </div>
+    <div class="form-group">
+      {{ form_label(mail_form.subject) }}
+      {{ form_errors(mail_form.subject) }}
+      {{ form_widget(mail_form.subject) }}
+    </div>
+    <div class="form-group">
+      {{ form_label(mail_form.message) }}
+      {{ form_errors(mail_form.message) }}
+      {{ form_widget(mail_form.message) }}
+    </div>
+  {{ form_end(mail_form) }}
 {% endblock %}

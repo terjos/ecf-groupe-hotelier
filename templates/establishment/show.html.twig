@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-  {{ establishment.name }}
+  {{ establishment.name }} | {{ parent() }}
 {% endblock %}
 
 {% block body %}
@@ -68,12 +68,9 @@
             </a>
           </div>
           <div class="room-resa">
-            <a href="{{ path('app_reservation_new', { 'suite': room.id}) }}">
-              <button>Réserver la suite</button>
+            <a class="btn" href="{{ path('app_reservation_new', { 'suite': room.id}) }}">Réserver la suite
             </a>
-            <a href="{{ room.bookingLink }}" target="_blank">
-              <button>Réserver sur booking.com</button>
-            </a>
+            <a class="btn" href="{{ room.bookingLink }}" target="_blank">Réserver sur booking.com</a>
           </div>
         </div>
       </div>

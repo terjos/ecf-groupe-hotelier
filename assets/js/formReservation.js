@@ -10,7 +10,7 @@ const submit = document.getElementById("reservation_submit");
 establishment?.addEventListener("change", function (e) {
     let data = new FormData(form);
 
-    fetch("/reservation/new", {
+    fetch("/reservation/creer", {
         method: "POST",
         body: data,
     })

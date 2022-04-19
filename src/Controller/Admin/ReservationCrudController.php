@@ -6,6 +6,8 @@ use App\Entity\Reservation;
 use Doctrine\ORM\QueryBuilder;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FieldCollection;
 use EasyCorp\Bundle\EasyAdminBundle\Collection\FilterCollection;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
+use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Filters;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
@@ -14,7 +16,7 @@ use EasyCorp\Bundle\EasyAdminBundle\Dto\SearchDto;
 use EasyCorp\Bundle\EasyAdminBundle\Field\DateField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use EasyCorp\Bundle\EasyAdminBundle\Filter\DateTimeFilter;
-use EasyCorp\Bundle\EasyAdminBundle\Filter\TextFilter;
+use EasyCorp\Bundle\EasyAdminBundle\Filter\EntityFilter;
 
 class ReservationCrudController extends AbstractCrudController
 {
@@ -33,7 +35,7 @@ class ReservationCrudController extends AbstractCrudController
     public function configureFilters(Filters $filters): Filters
     {
         return $filters
-            ->add(TextFilter::new('room', 'Suite'))
+            ->add(EntityFilter::new('room', 'Suite'))
             ->add(DateTimeFilter::new('startAt', 'Date de début'))
             ->add(DateTimeFilter::new('endAt', 'Date de fin'));
     }
@@ -63,5 +65,12 @@ class ReservationCrudController extends AbstractCrudController
         yield TextField::new('user.email', 'Client');
         yield DateField::new('startAt', 'Date de début')->renderAsText();
         yield DateField::new('endAt', 'Date de fin')->renderAsText();
+    }
+
+    public function configureActions(Actions $actions): Actions
+    {
+        return $actions
+            ->remove(Crud::PAGE_INDEX, Action::NEW)
+        ;
     }
 }
